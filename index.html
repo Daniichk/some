@@ -24,7 +24,7 @@
             min-height: 100vh;
         }
 
-        /* Liquid Background */
+        /* Liquid Glass Background Effect */
         .liquid-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -48,67 +48,102 @@
             to { transform: translate(30%, 20%); }
         }
 
-        /* Nav */
+        /* Navigation (Apple/Fortune 500 Style) */
         nav {
             position: fixed;
             top: 0; width: 100%; height: 50px;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(30px) saturate(180%);
             border-bottom: 1px solid var(--glass-border);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
-        nav span { color: var(--text-muted); cursor: pointer; padding: 0 20px; transition: 0.3s; }
+        nav span { color: var(--text-muted); cursor: pointer; transition: 0.3s; padding: 0 20px; font-weight: 300; }
         nav span:hover { color: #fff; }
 
-        /* Root Layout */
+        /* Main App Root */
         #app-root {
             padding-top: 120px;
+            transition: opacity 0.4s ease-in-out;
             max-width: 1100px;
             margin: 0 auto;
-            transition: opacity 0.4s;
         }
 
-        .hero { text-align: center; padding-bottom: 60px; }
+        /* Hero UI (OpenAI Style) */
+        .hero { text-align: center; padding: 40px 20px 80px 20px; }
         .hero h1 { 
-            font-size: clamp(40px, 8vw, 80px); font-weight: 100; letter-spacing: -3px;
+            font-size: clamp(40px, 8vw, 80px); 
+            font-weight: 100; 
+            letter-spacing: -3px;
             background: linear-gradient(180deg, #fff 0%, #555 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+        .hero p { color: var(--text-muted); font-size: 18px; margin-top: 20px; font-weight: 200; }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px;
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 20px; }
-
+        /* Premium Glass Card */
         .card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 24px;
-            padding: 40px; cursor: pointer; transition: 0.4s;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.15, 1, 0.3, 1);
+            position: relative;
         }
 
-        .card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-5px); }
-        .card h2 { font-size: 22px; margin: 15px 0 10px 0; font-weight: 400; }
-        .card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+        .card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; display: block; font-weight: 600; }
+        .card h2 { font-size: 22px; font-weight: 400; margin: 0 0 15px 0; }
+        .card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-weight: 300; }
 
         /* Fullscreen Module Portal */
         #portal {
-            display: none; position: fixed;
+            display: none;
+            position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 2000;
         }
 
         .portal-header {
-            height: 50px; padding: 0 25px;
+            height: 60px; padding: 0 30px;
             display: flex; align-items: center; justify-content: space-between;
             border-bottom: 1px solid var(--glass-border);
             background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
         }
 
-        iframe { width: 100%; height: calc(100% - 50px); border: none; background: #fff; }
+        iframe { width: 100%; height: calc(100% - 60px); border: none; background: #fff; }
 
         .btn-exit {
             background: #fff; color: #000; border: none;
-            padding: 6px 20px; border-radius: 50px; font-weight: 600; cursor: pointer;
+            padding: 8px 24px; border-radius: 50px; font-weight: 600;
+            cursor: pointer; font-size: 12px; transition: 0.2s;
         }
+        .btn-exit:hover { transform: scale(1.05); }
+
     </style>
 </head>
 <body>
@@ -117,7 +152,7 @@
 <div class="liquid-blob"></div>
 
 <nav>
-    <span onclick="window.location.reload()">Architecture</span> / 
+    <span onclick="window.location.reload()">Systems</span> / 
     <span onclick="loadInternalPage('about.txt')">Intelligence</span> / 
     <span onclick="loadInternalPage('security.txt')">Security</span>
 </nav>
@@ -125,32 +160,32 @@
 <main id="app-root">
     <div class="hero">
         <h1>Autonomous <br>Logic Assets</h1>
-        <p style="color: var(--text-muted);">Secure environment for modular data verification.</p>
+        <p>Integrated environment for core system validation and neural modeling.</p>
     </div>
 
     <div class="grid">
-        <!-- Кнопка запуска Кликера -->
-        <div class="card" onclick="runModule('project1.txt', 'Clicker Core 2.0')">
-            <span style="font-size:10px; color:#555; letter-spacing:2px;">R&D STABLE</span>
-            <h2>Clicker Protocol</h2>
-            <p>Verification of internal economy, business modules, and UI/UX assets.</p>
+        <!-- Твой Лама-Кликер -->
+        <div class="card" onclick="runModule('game1.txt', 'Clicker Protocol 2.0')">
+            <span class="card-label">R&D STABLE</span>
+            <h2>Neural Clicker</h2>
+            <p>Verification of internal economy, businesses, and visual customization modules.</p>
         </div>
     </div>
 </main>
 
+<!-- Fullscreen Viewer -->
 <div id="portal">
     <div class="portal-header">
-        <span id="session-info" style="font-size: 11px; color: #666;">SESSION: ACTIVE</span>
+        <span id="session-info" style="font-size: 12px; color: #888; font-weight: 300;">INITIALIZING_...</span>
         <button class="btn-exit" onclick="terminateSession()">Terminate Session</button>
     </div>
-    <!-- Добавлены важные параметры sandbox для работы сохранений и кнопок -->
     <iframe id="engine-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-modals"></iframe>
 </div>
 
 <script>
     /**
      * Продвинутый UTF-8 Декодер. 
-     * Гарантирует работу эмодзи и сложных JS-скриптов.
+     * Исправляет работу эмодзи, кириллицы и сложных JS-скриптов.
      */
     function safeDecode(str) {
         try {
@@ -167,21 +202,26 @@
      */
     async function loadInternalPage(fileName) {
         const root = document.getElementById('app-root');
+        root.style.opacity = '0';
         try {
             const res = await fetch(fileName);
             const b64 = await res.text();
-            root.style.opacity = '0';
+            const html = safeDecode(b64);
+            
             setTimeout(() => {
-                root.innerHTML = safeDecode(b64);
+                root.innerHTML = html;
                 root.style.opacity = '1';
                 window.scrollTo(0,0);
-            }, 300);
-        } catch (e) { console.error(e); }
+            }, 400);
+        } catch (e) {
+            console.error("Navigation error:", e);
+            root.style.opacity = '1';
+        }
     }
 
     /**
-     * Главная функция запуска Модулей (Игр)
-     * Использует Blob + URL.createObjectURL для 100% работы всех кнопок и сохранений.
+     * ГЛАВНАЯ ФУНКЦИЯ ЗАПУСКА КЛИКЕРА.
+     * Использует doc.write() для принудительной инициализации панелей TREE и BIZ.
      */
     async function runModule(fileName, label) {
         const portal = document.getElementById('portal');
@@ -192,41 +232,36 @@
             const res = await fetch(fileName);
             if (!res.ok) throw new Error("Sync failed");
             const b64 = await res.text();
-            
-            // 1. Декодируем HTML
             const html = safeDecode(b64);
 
-            // 2. Очищаем старые данные
+            portal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            info.textContent = "SESSION_ACTIVE: " + label.toUpperCase();
+
+            // Принудительная перезагрузка фрейма
             frame.src = "about:blank";
 
-            // 3. Создаем Blob. Это заставляет браузер думать, что игра - это отдельный файл.
-            // Так кнопки (Biz, Tree) и сохранения (localStorage) будут работать идеально.
-            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-            const blobUrl = URL.createObjectURL(blob);
-
-            // 4. Загружаем и показываем
             setTimeout(() => {
-                frame.src = blobUrl;
-                info.textContent = "SESSION_ACTIVE: " + label.toUpperCase();
-                portal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            }, 100);
+                // Доступ к внутреннему документу фрейма
+                const doc = frame.contentWindow.document;
+                doc.open();
+                // Записываем HTML напрямую, чтобы скрипты игры "увидели" DOM
+                doc.write(html);
+                doc.close();
+
+                // Посылаем сигнал готовности скриптам игры
+                frame.contentWindow.dispatchEvent(new Event('load'));
+                frame.focus();
+            }, 150);
 
         } catch (e) {
-            alert("Critical Sync Error: Check data source.");
+            alert("System Error: Unable to synchronize assets.");
         }
     }
 
     function terminateSession() {
-        const portal = document.getElementById('portal');
-        const frame = document.getElementById('engine-frame');
-        portal.style.display = 'none';
-        
-        // Очистка URL в памяти для экономии ресурсов
-        if (frame.src.startsWith('blob:')) {
-            URL.revokeObjectURL(frame.src);
-        }
-        frame.src = "";
+        document.getElementById('portal').style.display = 'none';
+        document.getElementById('engine-frame').src = '';
         document.body.style.overflow = 'auto';
     }
 </script>
