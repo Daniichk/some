@@ -24,7 +24,7 @@
             min-height: 100vh;
         }
 
-        /* Liquid Background Effect */
+        /* Liquid Glass Background */
         .liquid-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -34,89 +34,92 @@
 
         .liquid-blob {
             position: fixed;
-            width: 500px; height: 500px;
+            width: 600px; height: 600px;
             background: linear-gradient(45deg, #1e3a8a, #581c87);
-            filter: blur(140px);
-            opacity: 0.2;
+            filter: blur(160px);
+            opacity: 0.15;
             z-index: -1;
             border-radius: 50%;
-            animation: move 25s infinite alternate;
+            animation: drift 25s infinite alternate ease-in-out;
         }
 
-        @keyframes move {
+        @keyframes drift {
             from { transform: translate(-10%, -10%); }
-            to { transform: translate(20%, 30%); }
+            to { transform: translate(30%, 20%); }
         }
 
-        /* Navigation (Apple Style) */
+        /* Navigation (Apple/Fortune 500 Style) */
         nav {
             position: fixed;
-            top: 0; width: 100%; height: 48px;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
+            top: 0; width: 100%; height: 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(30px) saturate(180%);
             border-bottom: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            font-size: 12px;
-            letter-spacing: 1px;
-            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
-        nav span { color: var(--text-muted); cursor: pointer; transition: 0.3s; padding: 0 15px; }
+        nav span { color: var(--text-muted); cursor: pointer; transition: 0.3s; padding: 0 20px; font-weight: 300; }
         nav span:hover { color: #fff; }
 
-        /* Content Wrapper */
+        /* Main Content Container */
         #app-root {
-            padding-top: 100px;
-            transition: opacity 0.5s ease;
-            max-width: 1200px;
+            padding-top: 120px;
+            transition: opacity 0.4s ease-in-out;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        /* Hero Section */
-        .hero { text-align: center; padding: 60px 20px; }
+        /* Hero (OpenAI Style) */
+        .hero { text-align: center; padding: 40px 20px 80px 20px; }
         .hero h1 { 
-            font-size: clamp(40px, 7vw, 84px); 
+            font-size: clamp(40px, 8vw, 80px); 
             font-weight: 100; 
             letter-spacing: -3px;
-            background: linear-gradient(180deg, #fff 0%, #444 100%);
+            background: linear-gradient(180deg, #fff 0%, #555 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 0;
         }
+        .hero p { color: var(--text-muted); font-size: 18px; margin-top: 20px; font-weight: 200; }
 
-        /* Grid System */
+        /* Project Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            padding: 40px 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
         }
 
-        /* Glass Card */
+        /* Glassmorphism Card */
         .card {
             background: var(--glass);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 40px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.15, 1, 0.3, 1);
+            transition: all 0.5s cubic-bezier(0.15, 1, 0.3, 1);
+            position: relative;
         }
 
         .card:hover {
             background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: scale(1.02);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
 
-        .card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; display: block; }
-        .card h2 { font-size: 24px; font-weight: 400; margin: 0 0 10px 0; }
-        .card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+        .card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; display: block; font-weight: 600; }
+        .card h2 { font-size: 22px; font-weight: 400; margin: 0 0 15px 0; }
+        .card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-weight: 300; }
 
-        /* Fullscreen Module Portal */
+        /* Fullscreen Module Portal (The Game Player) */
         #portal {
             display: none;
             position: fixed;
@@ -125,20 +128,22 @@
         }
 
         .portal-header {
-            height: 50px; padding: 0 20px;
+            height: 60px; padding: 0 30px;
             display: flex; align-items: center; justify-content: space-between;
             border-bottom: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
         }
 
-        iframe { width: 100%; height: calc(100% - 50px); border: none; background: white; }
+        iframe { width: 100%; height: calc(100% - 60px); border: none; background: #fff; }
 
         .btn-exit {
             background: #fff; color: #000; border: none;
-            padding: 6px 18px; border-radius: 20px; font-weight: 600;
-            cursor: pointer; font-size: 12px;
+            padding: 8px 24px; border-radius: 50px; font-weight: 600;
+            cursor: pointer; font-size: 12px; transition: 0.2s;
         }
+        .btn-exit:hover { transform: scale(1.05); }
+
     </style>
 </head>
 <body>
@@ -147,30 +152,37 @@
 <div class="liquid-blob"></div>
 
 <nav>
-    <span onclick="window.location.reload()">Architecture</span> / 
+    <span onclick="window.location.reload()">Systems</span> / 
     <span onclick="loadInternalPage('about.txt')">Intelligence</span> / 
-    <span onclick="loadInternalPage('protocols.txt')">Security</span>
+    <span onclick="loadInternalPage('security.txt')">Security</span>
 </nav>
 
 <main id="app-root">
     <div class="hero">
-        <h1>Integrated <br>Systems Core</h1>
-        <p style="color: var(--text-muted); font-size: 18px; font-weight: 300;">Advanced neural asset deployment and module verification.</p>
+        <h1>Autonomous <br>Logic Assets</h1>
+        <p>Integrated environment for core system validation and neural modeling.</p>
     </div>
 
     <div class="grid">
-        <!-- Project Item 1 -->
-        <div class="card" onclick="runModule('game1.txt', 'Neural Path 1.0')">
-            <span class="card-label">Verified Module</span>
-            <h2>Spatial Logic</h2>
-            <p>High-fidelity simulation of vector-based entity interactions and spatial mapping.</p>
+        <!-- Project 1 -->
+        <div class="card" onclick="runModule('game1.txt', 'Pathfinder Protocol')">
+            <span class="card-label">R&D Stable</span>
+            <h2>Neural Path 1.0</h2>
+            <p>Non-linear logic simulation focusing on spatial mapping and entity behavior.</p>
         </div>
 
-        <!-- Project Item 2 -->
-        <div class="card" onclick="runModule('game2.txt', 'Core Physics V')">
+        <!-- Project 2 -->
+        <div class="card" onclick="runModule('game2.txt', 'Physics Sandbox')">
             <span class="card-label">Active Stream</span>
-            <h2>Kinetic Stream</h2>
-            <p>Real-time physical engine deployment for structural data validation.</p>
+            <h2>Kinetic Core</h2>
+            <p>Advanced 2D physics environment for structural data integrity testing.</p>
+        </div>
+
+        <!-- Project 3 (New template) -->
+        <div class="card" onclick="runModule('game3.txt', 'Architecture Beta')">
+            <span class="card-label">Deployment</span>
+            <h2>System Alpha</h2>
+            <p>Validation of modular web components within high-performance containers.</p>
         </div>
     </div>
 </main>
@@ -178,22 +190,26 @@
 <!-- Fullscreen Viewer -->
 <div id="portal">
     <div class="portal-header">
-        <span id="session-info" style="font-size: 11px; letter-spacing: 1px; color: #888;">INITIALIZING_...</span>
+        <span id="session-info" style="font-size: 12px; color: #888; font-weight: 300;">SESSION_ACTIVE: INITIALIZING_...</span>
         <button class="btn-exit" onclick="terminateSession()">Terminate Session</button>
     </div>
     <iframe id="engine-frame"></iframe>
 </div>
 
 <script>
-    // 1. Функция для перехода между зашифрованными страницами
+    /**
+     * 1. Навигация между "страницами"
+     * Загружает .txt файл из корня сайта, декодирует Base64 и меняет контент.
+     */
     async function loadInternalPage(fileName) {
         const root = document.getElementById('app-root');
         root.style.opacity = '0';
         
         try {
-            const res = await fetch('/data/' + fileName);
+            const res = await fetch(fileName); 
+            if (!res.ok) throw new Error("Link error");
             const b64 = await res.text();
-            const html = atob(b64); // Декодируем Base64
+            const html = atob(b64); // Декодирование
             
             setTimeout(() => {
                 root.innerHTML = html;
@@ -201,30 +217,34 @@
                 window.scrollTo(0,0);
             }, 400);
         } catch (e) {
-            console.error("Linkage failure", e);
+            console.error("Access denied:", e);
             root.style.opacity = '1';
         }
     }
 
-    // 2. Функция для запуска игр во фрейме
+    /**
+     * 2. Запуск "модулей" (игр)
+     * Загружает .txt из корня, декодирует и открывает в полноэкранном фрейме.
+     */
     async function runModule(fileName, label) {
         const portal = document.getElementById('portal');
         const frame = document.getElementById('engine-frame');
         const info = document.getElementById('session-info');
 
         try {
-            const res = await fetch('/data/' + fileName);
+            const res = await fetch(fileName); 
+            if (!res.ok) throw new Error("Sync failure");
             const b64 = await res.text();
             const html = atob(b64);
             
             const blob = new Blob([html], { type: 'text/html' });
             frame.src = URL.createObjectURL(blob);
             
-            info.textContent = "SESSION_ACTIVE: " + label.toUpperCase();
+            info.textContent = "ACTIVE_SESSION: " + label.toUpperCase();
             portal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         } catch (e) {
-            alert("Sync Error");
+            alert("System Error: Sync Failed");
         }
     }
 
