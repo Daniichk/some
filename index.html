@@ -20,7 +20,7 @@
             color: var(--accent);
             font-family: 'Inter', -apple-system, sans-serif;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            overflow: hidden;
             min-height: 100vh;
         }
 
@@ -48,99 +48,66 @@
             to { transform: translate(30%, 20%); }
         }
 
-        /* Navigation (Apple/Fortune 500 Style) */
+        /* Nav */
         nav {
             position: fixed;
             top: 0; width: 100%; height: 50px;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(30px) saturate(180%);
             border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
         }
 
-        nav span { color: var(--text-muted); cursor: pointer; transition: 0.3s; padding: 0 20px; font-weight: 300; }
+        nav span { color: var(--text-muted); cursor: pointer; padding: 0 20px; transition: 0.3s; }
         nav span:hover { color: #fff; }
 
-        /* Content Wrapper */
+        /* Root Layout */
         #app-root {
             padding-top: 120px;
-            transition: opacity 0.4s ease-in-out;
             max-width: 1100px;
             margin: 0 auto;
+            transition: opacity 0.4s;
         }
 
-        /* Hero */
-        .hero { text-align: center; padding: 40px 20px 80px 20px; }
+        .hero { text-align: center; padding-bottom: 60px; }
         .hero h1 { 
-            font-size: clamp(40px, 8vw, 80px); 
-            font-weight: 100; 
-            letter-spacing: -3px;
+            font-size: clamp(40px, 8vw, 80px); font-weight: 100; letter-spacing: -3px;
             background: linear-gradient(180deg, #fff 0%, #555 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0;
-        }
-        .hero p { color: var(--text-muted); font-size: 18px; margin-top: 20px; font-weight: 200; }
-
-        /* Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 20px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0;
         }
 
-        /* Card */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 20px; }
+
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.15, 1, 0.3, 1);
-            position: relative;
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 24px;
+            padding: 40px; cursor: pointer; transition: 0.4s;
         }
 
-        .card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-8px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        }
+        .card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-5px); }
+        .card h2 { font-size: 22px; margin: 15px 0 10px 0; font-weight: 400; }
+        .card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
 
-        .card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; display: block; font-weight: 600; }
-        .card h2 { font-size: 22px; font-weight: 400; margin: 0 0 15px 0; }
-        .card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-weight: 300; }
-
-        /* Module Viewer Portal */
+        /* Fullscreen Player */
         #portal {
-            display: none;
-            position: fixed;
+            display: none; position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 2000;
         }
 
         .portal-header {
-            height: 60px; padding: 0 30px;
+            height: 50px; padding: 0 25px;
             display: flex; align-items: center; justify-content: space-between;
             border-bottom: 1px solid var(--glass-border);
             background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(20px);
         }
 
-        iframe { width: 100%; height: calc(100% - 60px); border: none; background: #fff; }
+        iframe { width: 100%; height: calc(100% - 50px); border: none; background: #fff; }
 
         .btn-exit {
             background: #fff; color: #000; border: none;
-            padding: 8px 24px; border-radius: 50px; font-weight: 600;
-            cursor: pointer; font-size: 12px;
+            padding: 6px 20px; border-radius: 50px; font-weight: 600; cursor: pointer;
         }
     </style>
 </head>
@@ -150,46 +117,37 @@
 <div class="liquid-blob"></div>
 
 <nav>
-    <span onclick="window.location.reload()">Architecture</span> / 
-    <span onclick="loadInternalPage('about.txt')">Intelligence</span> / 
-    <span onclick="loadInternalPage('security.txt')">Security</span>
+    <span onclick="window.location.reload()">Systems</span> / 
+    <span onclick="loadInternalPage('about.txt')">Intelligence</span>
 </nav>
 
 <main id="app-root">
     <div class="hero">
         <h1>Autonomous <br>Logic Assets</h1>
-        <p>Advanced environment for core system validation and neural modeling.</p>
+        <p style="color:#888;">Secure verification of modular clicker systems.</p>
     </div>
 
     <div class="grid">
-        <!-- Project Card 1 -->
-        <div class="card" onclick="runModule('project1.txt', 'Neural Path 1.0')">
-            <span class="card-label">DD</span>
-            <h2>Spatial Logic</h2>
-            <p>Non-linear logic simulation focusing on spatial mapping and entity behavior.</p>
-        </div>
-
-        <!-- Project Card 2 -->
-        <div class="card" onclick="runModule('game2.txt', 'Kinetic Core V')">
-            <span class="card-label">Active Stream</span>
-            <h2>Physics Sandbox</h2>
-            <p>Advanced 2D physics environment for structural data integrity testing.</p>
+        <!-- Твой Кликер -->
+        <div class="card" onclick="runModule('project1.txt', 'Clicker Engine')">
+            <span style="font-size:10px; color:#555; letter-spacing:2px;">STABLE V2.0</span>
+            <h2>Clicker Protocol</h2>
+            <p>Verification of internal economy, businesses, and visual customization modules.</p>
         </div>
     </div>
 </main>
 
 <div id="portal">
     <div class="portal-header">
-        <span id="session-info" style="font-size: 11px; color: #888; font-weight: 300;">INITIALIZING_...</span>
+        <span id="session-info" style="font-size: 11px; color: #666;">SESSION: ACTIVE</span>
         <button class="btn-exit" onclick="terminateSession()">Terminate Session</button>
     </div>
-    <iframe id="engine-frame"></iframe>
+    <iframe id="engine-frame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
 </div>
 
 <script>
     /**
-     * Продвинутый UTF-8 декодер. 
-     * Гарантирует работу эмодзи, кириллицы и сложных JS-скриптов анимации.
+     * Продвинутый UTF-8 Декодер (чтобы эмодзи и функции не ломались)
      */
     function safeDecode(str) {
         try {
@@ -197,64 +155,51 @@
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
         } catch (e) {
-            // Фолбэк на случай, если файл закодирован обычным btoa
             return atob(str);
         }
     }
 
     /**
-     * Загрузка зашифрованных страниц (about, security и т.д.)
-     */
-    async function loadInternalPage(fileName) {
-        const root = document.getElementById('app-root');
-        root.style.opacity = '0';
-        try {
-            const res = await fetch(fileName);
-            if (!res.ok) throw new Error("Sync failure");
-            const b64 = await res.text();
-            const html = safeDecode(b64);
-            
-            setTimeout(() => {
-                root.innerHTML = html;
-                root.style.opacity = '1';
-                window.scrollTo(0,0);
-            }, 400);
-        } catch (e) {
-            console.error("Navigation error:", e);
-            root.style.opacity = '1';
-        }
-    }
-
-    /**
-     * Запуск зашифрованных модулей (игр) во фрейме
+     * Запуск Игры через srcdoc (самый стабильный метод для сохранений)
      */
     async function runModule(fileName, label) {
         const portal = document.getElementById('portal');
         const frame = document.getElementById('engine-frame');
-        const info = document.getElementById('session-info');
-
+        
         try {
             const res = await fetch(fileName);
-            if (!res.ok) throw new Error("Sync error");
+            if (!res.ok) throw new Error("File not found");
             const b64 = await res.text();
             const html = safeDecode(b64);
+
+            // Используем srcdoc вместо Blob, чтобы сохранения работали надежнее
+            frame.srcdoc = html;
             
-            // Blob позволяет запускать код как полноценную страницу в памяти
-            const blob = new Blob([html], { type: 'text/html' });
-            frame.src = URL.createObjectURL(blob);
-            
-            info.textContent = "SESSION_ACTIVE: " + label.toUpperCase();
+            document.getElementById('session-info').textContent = "MODULE_RUNNING: " + label.toUpperCase();
             portal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
         } catch (e) {
-            alert("Sync Failed: Check console for logs.");
+            alert("Error initializing logic: " + fileName);
         }
     }
 
     function terminateSession() {
-        document.getElementById('portal').style.display = 'none';
-        document.getElementById('engine-frame').src = '';
-        document.body.style.overflow = 'auto';
+        const portal = document.getElementById('portal');
+        const frame = document.getElementById('engine-frame');
+        portal.style.display = 'none';
+        frame.srcdoc = ""; // Полная очистка
+    }
+
+    async function loadInternalPage(fileName) {
+        const root = document.getElementById('app-root');
+        try {
+            const res = await fetch(fileName);
+            const b64 = await res.text();
+            root.style.opacity = '0';
+            setTimeout(() => {
+                root.innerHTML = safeDecode(b64);
+                root.style.opacity = '1';
+            }, 300);
+        } catch (e) { console.error(e); }
     }
 </script>
 
