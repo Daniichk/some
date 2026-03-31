@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Systems | Neural Architecture</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000000;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent: #ffffff;
+            --text-muted: #86868b;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            color: var(--accent);
+            font-family: 'Inter', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Liquid Background Effect */
+        .liquid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+            z-index: -2;
+        }
+
+        .liquid-blob {
+            position: fixed;
+            width: 500px; height: 500px;
+            background: linear-gradient(45deg, #1e3a8a, #581c87);
+            filter: blur(140px);
+            opacity: 0.2;
+            z-index: -1;
+            border-radius: 50%;
+            animation: move 25s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 30%); }
+        }
+
+        /* Navigation (Apple Style) */
+        nav {
+            position: fixed;
+            top: 0; width: 100%; height: 48px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        nav span { color: var(--text-muted); cursor: pointer; transition: 0.3s; padding: 0 15px; }
+        nav span:hover { color: #fff; }
+
+        /* Content Wrapper */
+        #app-root {
+            padding-top: 100px;
+            transition: opacity 0.5s ease;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero { text-align: center; padding: 60px 20px; }
+        .hero h1 { 
+            font-size: clamp(40px, 7vw, 84px); 
+            font-weight: 100; 
+            letter-spacing: -3px;
+            background: linear-gradient(180deg, #fff 0%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        /* Grid System */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 40px 20px;
+        }
+
+        /* Glass Card */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.15, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: scale(1.02);
+        }
+
+        .card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; display: block; }
+        .card h2 { font-size: 24px; font-weight: 400; margin: 0 0 10px 0; }
+        .card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+
+        /* Fullscreen Module Portal */
+        #portal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 2000;
+        }
+
+        .portal-header {
+            height: 50px; padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        iframe { width: 100%; height: calc(100% - 50px); border: none; background: white; }
+
+        .btn-exit {
+            background: #fff; color: #000; border: none;
+            padding: 6px 18px; border-radius: 20px; font-weight: 600;
+            cursor: pointer; font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="liquid-bg"></div>
+<div class="liquid-blob"></div>
+
+<nav>
+    <span onclick="window.location.reload()">Architecture</span> / 
+    <span onclick="loadInternalPage('about.txt')">Intelligence</span> / 
+    <span onclick="loadInternalPage('protocols.txt')">Security</span>
+</nav>
+
+<main id="app-root">
+    <div class="hero">
+        <h1>Integrated <br>Systems Core</h1>
+        <p style="color: var(--text-muted); font-size: 18px; font-weight: 300;">Advanced neural asset deployment and module verification.</p>
+    </div>
+
+    <div class="grid">
+        <!-- Project Item 1 -->
+        <div class="card" onclick="runModule('game1.txt', 'Neural Path 1.0')">
+            <span class="card-label">Verified Module</span>
+            <h2>Spatial Logic</h2>
+            <p>High-fidelity simulation of vector-based entity interactions and spatial mapping.</p>
+        </div>
+
+        <!-- Project Item 2 -->
+        <div class="card" onclick="runModule('game2.txt', 'Core Physics V')">
+            <span class="card-label">Active Stream</span>
+            <h2>Kinetic Stream</h2>
+            <p>Real-time physical engine deployment for structural data validation.</p>
+        </div>
+    </div>
+</main>
+
+<!-- Fullscreen Viewer -->
+<div id="portal">
+    <div class="portal-header">
+        <span id="session-info" style="font-size: 11px; letter-spacing: 1px; color: #888;">INITIALIZING_...</span>
+        <button class="btn-exit" onclick="terminateSession()">Terminate Session</button>
+    </div>
+    <iframe id="engine-frame"></iframe>
+</div>
+
+<script>
+    // 1. Функция для перехода между зашифрованными страницами
+    async function loadInternalPage(fileName) {
+        const root = document.getElementById('app-root');
+        root.style.opacity = '0';
+        
+        try {
+            const res = await fetch('/data/' + fileName);
+            const b64 = await res.text();
+            const html = atob(b64); // Декодируем Base64
+            
+            setTimeout(() => {
+                root.innerHTML = html;
+                root.style.opacity = '1';
+                window.scrollTo(0,0);
+            }, 400);
+        } catch (e) {
+            console.error("Linkage failure", e);
+            root.style.opacity = '1';
+        }
+    }
+
+    // 2. Функция для запуска игр во фрейме
+    async function runModule(fileName, label) {
+        const portal = document.getElementById('portal');
+        const frame = document.getElementById('engine-frame');
+        const info = document.getElementById('session-info');
+
+        try {
+            const res = await fetch('/data/' + fileName);
+            const b64 = await res.text();
+            const html = atob(b64);
+            
+            const blob = new Blob([html], { type: 'text/html' });
+            frame.src = URL.createObjectURL(blob);
+            
+            info.textContent = "SESSION_ACTIVE: " + label.toUpperCase();
+            portal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        } catch (e) {
+            alert("Sync Error");
+        }
+    }
+
+    function terminateSession() {
+        document.getElementById('portal').style.display = 'none';
+        document.getElementById('engine-frame').src = '';
+        document.body.style.overflow = 'auto';
+    }
+</script>
+
+</body>
+</html>
