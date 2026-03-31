@@ -24,7 +24,7 @@
             min-height: 100vh;
         }
 
-        /* Liquid Glass Background */
+        /* Liquid Background */
         .liquid-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -89,7 +89,7 @@
         .card h2 { font-size: 22px; margin: 15px 0 10px 0; font-weight: 400; }
         .card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
 
-        /* Fullscreen Player */
+        /* Fullscreen Module Portal */
         #portal {
             display: none; position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -117,22 +117,23 @@
 <div class="liquid-blob"></div>
 
 <nav>
-    <span onclick="window.location.reload()">Systems</span> / 
-    <span onclick="loadInternalPage('about.txt')">Intelligence</span>
+    <span onclick="window.location.reload()">Architecture</span> / 
+    <span onclick="loadInternalPage('about.txt')">Intelligence</span> / 
+    <span onclick="loadInternalPage('security.txt')">Security</span>
 </nav>
 
 <main id="app-root">
     <div class="hero">
         <h1>Autonomous <br>Logic Assets</h1>
-        <p style="color:#888;">Secure verification of modular clicker systems.</p>
+        <p style="color: var(--text-muted);">Secure environment for modular data verification.</p>
     </div>
 
     <div class="grid">
-        <!-- Твой Кликер -->
-        <div class="card" onclick="runModule('project1.txt', 'Clicker Engine')">
-            <span style="font-size:10px; color:#555; letter-spacing:2px;">STABLE V2.0</span>
+        <!-- Кнопка запуска Кликера -->
+        <div class="card" onclick="runModule('project1.txt', 'Clicker Core 2.0')">
+            <span style="font-size:10px; color:#555; letter-spacing:2px;">R&D STABLE</span>
             <h2>Clicker Protocol</h2>
-            <p>Verification of internal economy, businesses, and visual customization modules.</p>
+            <p>Verification of internal economy, business modules, and UI/UX assets.</p>
         </div>
     </div>
 </main>
@@ -142,12 +143,14 @@
         <span id="session-info" style="font-size: 11px; color: #666;">SESSION: ACTIVE</span>
         <button class="btn-exit" onclick="terminateSession()">Terminate Session</button>
     </div>
-    <iframe id="engine-frame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    <!-- Добавлены важные параметры sandbox для работы сохранений и кнопок -->
+    <iframe id="engine-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-modals"></iframe>
 </div>
 
 <script>
     /**
-     * Продвинутый UTF-8 Декодер (чтобы эмодзи и функции не ломались)
+     * Продвинутый UTF-8 Декодер. 
+     * Гарантирует работу эмодзи и сложных JS-скриптов.
      */
     function safeDecode(str) {
         try {
@@ -160,35 +163,8 @@
     }
 
     /**
-     * Запуск Игры через srcdoc (самый стабильный метод для сохранений)
+     * Загрузка зашифрованных страниц (about, security)
      */
-    async function runModule(fileName, label) {
-        const portal = document.getElementById('portal');
-        const frame = document.getElementById('engine-frame');
-        
-        try {
-            const res = await fetch(fileName);
-            if (!res.ok) throw new Error("File not found");
-            const b64 = await res.text();
-            const html = safeDecode(b64);
-
-            // Используем srcdoc вместо Blob, чтобы сохранения работали надежнее
-            frame.srcdoc = html;
-            
-            document.getElementById('session-info').textContent = "MODULE_RUNNING: " + label.toUpperCase();
-            portal.style.display = 'block';
-        } catch (e) {
-            alert("Error initializing logic: " + fileName);
-        }
-    }
-
-    function terminateSession() {
-        const portal = document.getElementById('portal');
-        const frame = document.getElementById('engine-frame');
-        portal.style.display = 'none';
-        frame.srcdoc = ""; // Полная очистка
-    }
-
     async function loadInternalPage(fileName) {
         const root = document.getElementById('app-root');
         try {
@@ -198,8 +174,60 @@
             setTimeout(() => {
                 root.innerHTML = safeDecode(b64);
                 root.style.opacity = '1';
+                window.scrollTo(0,0);
             }, 300);
         } catch (e) { console.error(e); }
+    }
+
+    /**
+     * Главная функция запуска Модулей (Игр)
+     * Использует Blob + URL.createObjectURL для 100% работы всех кнопок и сохранений.
+     */
+    async function runModule(fileName, label) {
+        const portal = document.getElementById('portal');
+        const frame = document.getElementById('engine-frame');
+        const info = document.getElementById('session-info');
+
+        try {
+            const res = await fetch(fileName);
+            if (!res.ok) throw new Error("Sync failed");
+            const b64 = await res.text();
+            
+            // 1. Декодируем HTML
+            const html = safeDecode(b64);
+
+            // 2. Очищаем старые данные
+            frame.src = "about:blank";
+
+            // 3. Создаем Blob. Это заставляет браузер думать, что игра - это отдельный файл.
+            // Так кнопки (Biz, Tree) и сохранения (localStorage) будут работать идеально.
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const blobUrl = URL.createObjectURL(blob);
+
+            // 4. Загружаем и показываем
+            setTimeout(() => {
+                frame.src = blobUrl;
+                info.textContent = "SESSION_ACTIVE: " + label.toUpperCase();
+                portal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }, 100);
+
+        } catch (e) {
+            alert("Critical Sync Error: Check data source.");
+        }
+    }
+
+    function terminateSession() {
+        const portal = document.getElementById('portal');
+        const frame = document.getElementById('engine-frame');
+        portal.style.display = 'none';
+        
+        // Очистка URL в памяти для экономии ресурсов
+        if (frame.src.startsWith('blob:')) {
+            URL.revokeObjectURL(frame.src);
+        }
+        frame.src = "";
+        document.body.style.overflow = 'auto';
     }
 </script>
 
